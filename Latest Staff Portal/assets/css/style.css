@@ -2574,6 +2574,7 @@ a {
     height: 100%;
     display: table-cell;
     vertical-align: middle;
+    background-color: #e4ebe0 !important;
 }
 
     .login-wrapper .loginbox {
