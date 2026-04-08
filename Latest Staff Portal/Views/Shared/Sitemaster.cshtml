@@ -68,13 +68,9 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <style>
 
-
-
-
-
         :root {
             --purple: #9a6cac;
-            --deep-purple: #f9ad55;
+            --deep-purple: #5d7950;
             --black: #373637;
             --white: #ffffff;
             --light-gray: #f4f4f4;
@@ -82,7 +78,7 @@
             --medium-gray: #e0e0e0;
             --transition-speed: 0.3s;
             --sidebar-bg: #ffffff;
-            --active-link-bg: #5c8a64; /*#f7921f*/
+            --active-link-bg: #704825; /*#f7921f*/
             --active-link-color: #ffffff;
         }
 
@@ -217,7 +213,7 @@
         }
 
         .logo-image {
-            width: 50px;
+            width: 20px;
             height: auto;
         }
 
@@ -570,8 +566,8 @@
         }
 
         .logo-image {
-            height: 80px;
-            width: 150px;
+            height: auto;
+            width: 80px;
             object-fit: contain; /* maintains aspect ratio */
         }
         /* Default styles */
@@ -588,7 +584,7 @@
         }
 
         .logo-image {
-            width: 150px;
+            width: 80px;
             max-width: 100%;
             height: auto;
             transition: width 0.3s ease;
@@ -596,7 +592,7 @@
 
         /* Optional: Resize image when collapsed */
         #sidebar.collapsed .logo-image {
-            width: 150px;
+            width: 100px;
         }
 
         .avatar-dropdown .dropdown-menu {
@@ -631,6 +627,7 @@
         <div class="logo-container text-center">
             <div class="logo">
                 <span><img src="/assets/img/logo.png" alt="Logo" class="logo-image" /></span>
+                <span style="color: #5d7950; ">ADC</span>
             </div>
             <div class="logo2">
                 <span><img src="/assets/img/logo.png" alt="Logo Collapsed" class="logo-image" /></span>

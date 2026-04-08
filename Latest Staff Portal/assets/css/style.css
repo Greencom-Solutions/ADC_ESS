@@ -418,7 +418,7 @@ button.close {
 }
 /*Table Dark mode*/
 #datatable-buttons thead {
-    background-color: #5c8a64 !important;
+    background-color: #704825 !important;
     color: #fff !important;
 }
 
@@ -2605,7 +2605,7 @@ a {
 
 .login-wrapper .loginbox .login-left {
     align-items: center;
-    background: linear-gradient(180deg, #27433c, #27433c);
+    background: linear-gradient(180deg, #805c3d, #805c3d);
     border-radius: 6px 0 0 6px;
     flex-direction: column;
     padding-left: 70px;
@@ -2729,14 +2729,25 @@ a {
 }
 
 #btnLogin {
-    background-color: #5c8a64;
+    background-color: #805c3d;
     color: white;
     transition: .3s ease-in-out;
     border: none
 }
 
     #btnLogin:hover {
-        background-color: #f4ae38;
+        background-color: #5d7950;
+        color: white;
+    }
+#btnReset {
+    background-color: #805c3d;
+    color: white;
+    transition: .3s ease-in-out;
+    border: none
+}
+
+    #btnReset:hover {
+        background-color: #5d7950;
         color: white;
     }
 /*-----------------
@@ -5351,7 +5362,7 @@ table.table-inbox tbody tr.checked {
 
 /* Yellow Variant */
 .action-buttons3 {
-    background: #f4ae38;
+    background: #5d7950;
     color: #fff;
     border: none;
     padding: 0.25rem 0.5rem;
