@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Latest_Staff_Portal.ViewModel.StandingImprestLine>
+
+@{
+    var Status = ViewBag.Status;
+}
+
+<div class="table-responsive">
+    <table id="datatable-StandingImprest" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        <thead style="background-color:black;color:white">
+            <tr>
+                <th>No</th>
+                <th>Line No</th>
+                @*<th>Bounced Pv No</th>*@
+                <th>Account Type</th>
+                <th>Account No</th>
+                <th>Account Name</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Region</th>
+                <th>Department</th>
+                @*<th>Vote Item</th>*@
+                @*<th>Payee Bank Code</th>
+                <th>Payee Bank Name</th>
+                <th>Payee Bank Branch Code</th>
+                <th>Payee Bank Branch Name</th>
+                <th>Payee Bank Account No</th>
+                <th>Payee Bank Acc Name</th>
+                <th>RBank Name</th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="StandingImprestRows">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Line_No)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Bounced_Pv_No)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account_Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account_No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Shortcut_Dimension_1_Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Shortcut_Dimension_2_Code)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Vote_Item)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payee_Bank_Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payee_Bank_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payee_Bank_Branch_Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payee_Bank_Branch_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payee_Bank_Account_No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payee_Bank_Acc_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.rbankName)
+                    </td>*@
+                    <td>
+                        @if (Status == "Open")
+                        {
+                            <button class="btn btn-danger btn-sm" onclick="RemoveItem(`@item.No`, `@item.Line_No`)">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+@if (Status == "Open")
+{
+    <div style="text-align:right">
+        <button class="btn btn-primary action-buttons2 btn-sm" onclick="AddStandingImprestLine()">Add Line</button>
+      
+    </div>
+}
+
+
+
+
+
+<script>
+                $("#datatable-StandingImprest").DataTable({
+                    lengthChange: true,
+                    lengthMenu: [5, 10, 25, 50, 100] // Same options for the second table
+                });
+</script>

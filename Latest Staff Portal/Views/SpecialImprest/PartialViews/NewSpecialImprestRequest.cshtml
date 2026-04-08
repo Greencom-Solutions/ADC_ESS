@@ -1,0 +1,34 @@
+﻿@model Latest_Staff_Portal.ViewModel.SpecialImprest
+
+
+
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
+            <textarea class="form-control" id="Payment_Narration" rows="3"></textarea>
+            @*@Html.EditorFor(model => model.Payment_Narration, new { htmlAttributes = new { @class = "form-control", @id = "Payment_Narration" } })
+                @Html.ValidationMessageFor(model => model.Payment_Narration, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Total_Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Total_Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Total_Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+</div>
+
+<div class="text-center">
+    <button class="btn btn-primary action-buttons" onclick="SubmitSpecialImprest();"> Submit </button>
+</div>
+

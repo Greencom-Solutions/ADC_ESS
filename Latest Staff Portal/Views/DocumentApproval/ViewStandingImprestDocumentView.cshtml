@@ -1,0 +1,1040 @@
+﻿@model Latest_Staff_Portal.ViewModel.StandingImprest
+
+
+@{
+    ViewBag.Title = "StandingImprestDocumentView";
+
+}
+
+<div class="card">
+    <div class="card-header">
+     
+        <div class="text-center mt-5">
+            <h4>Standing Imprest  Document (@Model.No)</h4>
+        </div>
+
+
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("No", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.No, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.No, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Dimension Set ID", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Dimension_Set_ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Dimension_Set_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Date", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Posting Date", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Posting_Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Posting_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Account_No", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Account_No, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Account_No, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Account Name", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Account_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Account_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Standing Imprest Type", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Standing_Imprest_Type, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Standing_Imprest_Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Cheque Date", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Cheque_Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Cheque_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Paying Bank Account", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Paying_Bank_Account, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Paying_Bank_Account, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Bank Name", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Bank_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Bank_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Payment Narration", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Payment_Narration, new { htmlAttributes = new { @class = "form-control", @id = "txtPaymentNarration" } })
+                    @Html.ValidationMessageFor(model => model.Payment_Narration, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Currency Code", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Currency_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Currency_Code, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Total Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Total_Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Total_Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Region Code", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Shortcut_Dimension_1_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Shortcut_Dimension_1_Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Region Name", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Department_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Department_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Department Code", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Shortcut_Dimension_2_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Shortcut_Dimension_2_Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Department Name", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Project_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Project_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Available Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Available_Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Available_Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Committed Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Committed_Amount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Committed_Amount, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("AIE Receipt", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.AIE_Receipt, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.AIE_Receipt, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Strategic Plan", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @*@Html.DropDownListFor(model => model.Strategic_Plan, Model.ListOfStratPlans, new { @class = "form-control", @id = "txtStrategicPlan", @readonly = "readonly" })*@
+                    @Html.EditorFor(model => model.Strategic_Plan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Reporting Year Code", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @*@Html.DropDownListFor(model => model.Reporting_Year_Code, Model.ListOfImplementationYears, new { @class = "form-control", @id = "txtReportingYearCode", @readonly = "readonly" })*@
+                    @Html.EditorFor(model => model.Reporting_Year_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                </div>
+            </div>
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Workplan Code", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Workplan_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Workplan_Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Activity Code", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Activity_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Activity_Code, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Status", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Posted", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Posted)
+                        @Html.ValidationMessageFor(model => model.Posted, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Posted By", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Posted_By, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Posted_By, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Posted Date", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Posted_Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Posted_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Expenditure Requisition Code", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Expenditure_Requisition_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Expenditure_Requisition_Code, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Payment Ref No", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Payment_Ref_No, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Payment_Ref_No, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Payment Date", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Payment_Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Payment_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        </div>
+
+
+        @if (Model.Status == "Open")
+        {
+            <div class="text-center">
+                <button class="btn btn-primary action-buttons" onclick="UpdateStandingImprestHeader();"> Update Header </button>
+            </div>
+
+        }
+
+
+
+
+        <div id="DivImpLines">
+            <hr style="border:1px solid black" />
+            <b>Standing Imprest Lines</b>
+            <hr />
+            <div id="divImpLines"></div>
+
+            <hr style="border:1px solid black" />
+            <div>
+                <b>Attachments</b>
+                <div id="divAttachDocs"></div>
+            </div>
+            <hr style="border:1px solid black" />
+        </div>
+    </div>
+</div>
+
+
+@*//////////////////////Modal////////////////////////////*@
+<div id="myModal" class="modal fade " tabindex="-1" role="dialog" ke aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel"></h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*//////////////////////Modal View Doc////////////////////////////*@
+<div class="modal fade" id="myModalAttachment" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h4 class="modal-title">Attachment</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalAttachmentBody" style="width:100%;height:450px">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect " data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/js/ShowProgression.js"></script>
+<script src="~/assets/js/pdfobject.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        LoadStandingImprestDocumentLines(`@Model.No`, `@Model.Status`);
+        @* LoadImprestMemoItems(`@Model.No`, `@Model.Status`);*@
+        @* LoadImprestMemoNonStaff(`@Model.No`, `@Model.Status`);*@
+        var status = `@Model.Status`;
+
+        $('#Start_Date').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            autoclose: true,
+            yearRange: '-0:+2',
+            showOtherMonths: true,
+            dateFormat: 'dd/mm/yy',
+            minDate: 0
+        });
+
+        $("#ddlDim1,#ddlDim2,#ddlDim3,#ddlDim4,#ddlDim5,#ddlRespC,#ddlImprestDueType").select2({
+            width: '100%'
+        });
+
+    });
+    var LoadStandingImprestDocumentLines = function (DocNo,Status) {
+            ShowProgress();
+            $.ajax({
+                async: true,
+                type: "POST",
+                datatype: "json",
+                contentType: "application/json; charset = utf-8",
+                processData: false,
+                data: JSON.stringify({ DocNo: DocNo, Status: Status }),
+                url: "/StandingImprest/StandingImprestLines",
+                success: function (data) {
+                    $("#divImpLines").html(data);
+                    GetDocumentAttachments();
+                    HideProgress();
+
+                },
+                error: function () {
+                    GetDocumentAttachments();
+                    HideProgress();
+
+                    Swal.fire("There is some problem to process your request. Please try after some time");
+                }
+            });
+        };
+
+
+  
+    var ViewApprovalTrail = function (DocNo) {
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            datatype: "json",
+            data: JSON.stringify({ DocNo: DocNo }),
+            contentType: "application/json; charset = utf-8",
+            processData: false,
+            url: '/Common/DocumentApprovalTrail',
+            success: function (data) {
+                $("#modalBody").html(data);
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    }
+    var ViewComments = function (DocNo) {
+
+        $('#myModalLabel').text("Document Comments");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            data: { DocNo: DocNo }, // no need to JSON.stringify for simple string
+            url: '/Common/DocumentApprovalComments',
+            success: function (data) {
+                $("#modalBody").html(data); // ✅ insert HTML
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (xhr, status, error) {
+                HideProgress();
+                Swal.fire('Warning', error || "An unexpected error occurred", 'warning');
+            }
+        });
+    };
+    var ImprestMemoRequisitionLink = function () {
+        ShowProgress();
+        window.location = "/ImprestMemo/ImprestMemoRequisitionList";
+    }
+    function RemoveItem(DocNo, LineNo) {
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            datatype: "json",
+            data: JSON.stringify({  DocNo: DocNo, LineNo: LineNo }),
+            contentType: "application/json; charset = utf-8",
+            processData: false,
+            url: '/StandingImprest/DeleteStandingImprestLine',
+            success: function (data) {
+                if (data.success) {
+                    Swal.fire('Success', data.message, 'success');
+                    HideProgress();
+                    //$("#myModal").modal("hide");
+                    LoadStandingImprestDocumentLines(DocNo, `@Model.Status`)
+                   // window.location.reload();
+
+                }
+                else {
+                    HideProgress();
+                    Swal.fire('Error', data.message, 'error');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    }
+
+
+
+    var UpdateStandingImprestHeader = function () {
+        var DocNo = `@Model.No`; 
+        var Payment_Narration = $("#txtPaymentNarration").val();
+        var Strategic_Plan = $("#txtStrategicPlan").val();
+        var Reporting_Year_Code = $("#txtReportingYearCode").val();
+
+
+        if (!Payment_Narration) {
+            Swal.fire('Warning', "Payment Narration is required", 'warning');
+            return;
+        }
+        if (!Strategic_Plan) {
+            Swal.fire('Warning', "Strategic Plan  is required", 'warning');
+            return;
+        }
+        if (!Reporting_Year_Code) {
+            Swal.fire('Warning', "Reporting Year  is required", 'warning');
+            return;
+        }
+
+        var StandingImprestHeader = {
+            Payment_Narration: Payment_Narration,
+            Strategic_Plan: Strategic_Plan,
+            Reporting_Year_Code: Reporting_Year_Code
+
+        }
+       
+         
+
+        ShowProgress();
+
+        $.ajax({
+            type: "POST",
+            url: "/StandingImprest/UpdateStandingImprestHeader",
+            data: JSON.stringify({ DocNo: DocNo, StandingImprestHeader: StandingImprestHeader }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.success) {
+                    HideProgress();
+                    HideHeaderEditInput('Open');
+                    $("#btnEdit").val("Edit Header");
+                    $("#dtPicker").val(dateNeeded);
+                    $("#txtPurpose").val(Remarks);
+                    $("#txtCampus").val(CampusName);
+                    $("#txtDepartment").val(DepartmentName);
+                    $("#txtRespC").val(RespoC);
+                    Swal.fire('Success', data.message, 'success');
+                }
+                else {
+                    Swal.fire('Warning', data.message, 'warning');
+                    HideProgress();
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+
+    }
+
+
+    var AddStandingImprestLine = function () {
+        var docNo = '@Model.No';
+        $('#myModalLabel').text("New Standing Imprest Line");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: "html",
+            url: '/StandingImprest/NewStandingImprestLine',
+            data: {
+                docNo: docNo,
+
+            },
+            success: function (data) {
+                $("#modalBody").html(data);
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err.responseText, 'warning');
+            }
+        });
+    };
+    var SubmitStandingImprestLine = function () {
+        var DocNo = `@Model.No`;
+        var Account_No = $("#Account_No2").val();
+        var Description = $("#Description").val();
+        var Amount = $("#Amount").val();
+        //var Shortcut_Dimension_1_Code = $("#Shortcut_Dimension_1_Code").val();
+        //var Shortcut_Dimension_2_Code = $("#Shortcut_Dimension_2_Code").val();
+        //var Vote_Item = $("#Vote_Item").val();
+        //var Payee_Bank_Code = $("#Payee_Bank_Code").val();
+        //var branchCodeDropdown = $("#branchCodeDropdown").val();
+
+        if (!Account_No) {
+            Swal.fire('Warning', 'Account No is required', 'warning');
+            return;
+        }
+
+
+        if (!Description) {
+            Swal.fire('Warning', 'Description is required', 'warning');
+            return;
+        }
+
+
+
+        if (Amount<=0) {
+            Swal.fire('Warning', 'Invalid Amount', 'warning');
+            return;
+        }
+
+
+
+        var ImpLine = {
+            DocNo: DocNo,
+            Account_No: Account_No,
+            Description: Description,
+            Amount: Amount,
+            //Shortcut_Dimension_1_Code: Shortcut_Dimension_1_Code,
+            //Shortcut_Dimension_2_Code: Shortcut_Dimension_2_Code,
+            //Vote_Item: Vote_Item,
+            //Payee_Bank_Code: Payee_Bank_Code,
+            //branchCodeDropdown: branchCodeDropdown
+        };
+
+        ShowProgress();
+        $.ajax({
+            type: "POST",
+            url: "/StandingImprest/SubmitStandingImprestLine",
+            data: JSON.stringify({ DocNo: DocNo, ImpLine: ImpLine }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.success) {
+                    HideProgress();
+                    Swal.fire('Success', data.message, 'success');
+                    $("#myModal").modal("hide");
+                    LoadStandingImprestDocumentLines(DocNo, `@Model.Status`)
+                    //window.location.reload();
+                }
+                else {
+                    Swal.fire('Warning', data.message, 'warning');
+                    HideProgress();
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    }
+
+    var SendDocForApproval = function () {
+        var rowCount = $('#StandingImprestRows tr').length;
+        if (rowCount < 1) {
+            Swal.fire('Warning', 'You have not Added any Standing Imprest Requisition line(s)', 'warning');
+            return;
+        }
+        var DocNo = `@Model.No`;
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            datatype: "json",
+            data: JSON.stringify({ DocNo: DocNo }),
+            contentType: "application/json; charset = utf-8",
+            processData: false,
+            url: '/StandingImprest/SendStandingImprestAppForApproval',
+            success: function (data) {
+                if (data.success) {
+                    Swal.fire('Success', data.message, 'success');
+                    window.location.reload();
+
+                }
+                else {
+                    HideProgress();
+                    Swal.fire('Error', data.message, 'error');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    }
+
+    var CancelDocApproval = function () {
+        var DocNo = `@Model.No`;
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            datatype: "json",
+            data: JSON.stringify({ DocNo: DocNo }),
+            contentType: "application/json; charset = utf-8",
+            processData: false,
+            url: '/StandingImprest/CancelStandingImprestAppForApproval',
+            success: function (data) {
+                if (data.success) {
+                    Swal.fire('Success', data.message, 'success');
+                    window.location.reload();
+
+                }
+                else {
+                    HideProgress();
+                    Swal.fire('Error', data.message, 'error');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    }
+
+    var GetDocumentAttachments = function () {
+        var DocNo = `@Model.No`;
+        var status = '@Model.Status';
+        $.ajax({
+	        async: true,
+	        type: "POST",
+	        datatype: "json",
+	        contentType: "application/json; charset = utf-8",
+	        processData: false,
+                data: JSON.stringify({ DocNo: DocNo, documentStatus: status }),
+                url: "/Common/DocumentAttachments",
+	        success: function (data) {
+		        $("#divAttachDocs").html(data);
+	        },
+	        error: function () {
+		        Swal.fire("There is some problem to process your request. Please try after some time");
+	        }
+        });
+
+    };
+    var AddAttachment = function () {
+	    $("#labelF").text("File Upload");
+	    ShowProgress();
+	    $.ajax({
+		    async: true,
+		    type: "GET",
+		    datatype: "html",
+                url: '/Common/FileUploadForm',
+                success: function (data) {
+                    $("#modalBody").html(data);
+                    HideProgress();
+                    $("#myModal").modal("show");
+                },
+                error: function (err) {
+                    HideProgress();
+                    Swal.fire('Warning', err, 'warning');
+                }
+            });
+        };
+    var SaveAttachmentFile = function (receiptNumber) {
+        var DocNo = `@Model.No`;
+        var files = document.getElementById('AttachmentFile').files;
+        var filename; var base64String; var filetype;
+        if (files.length) {
+            var file = files[0];
+
+            if (file.type !== "application/pdf") {
+                Swal.fire('Warning', 'Only PDF files are allowed.', 'warning');
+                return;
+            }
+
+
+
+            if (file.size > 50000000) {
+                Swal.fire('Warning', 'Please only files less than 50MB allowed. Thanks!!', 'warning');
+            }
+	        else
+                {
+		        var blob = file.slice();
+		        filetype = file.type;
+		        filename = file.name;
+		        var reader = new FileReader();
+		        reader.onloadend = function (evt) {
+			        if (evt.target.readyState == FileReader.DONE) {
+				        var cont = evt.target.result
+				        base64String = getB64Str(cont);
+				        ShowProgress();
+				        $.ajax({
+					        type: "POST",
+					        url: "/Common/SaveAttachedFile",
+                            data: JSON.stringify({ DocNo: DocNo, base64Upload: base64String, fileName: filename, Extn: filetype, TableID: 57000, module: "Standing Imprest", documentType:"Imprest"}),
+					        contentType: "application/json; charset=utf-8",
+					        dataType: "json",
+					        success: function (data) {
+						        if (data.success) {
+							        HideProgress();
+							        $("#myModal").modal("hide");
+							        Swal.fire('Success', data.message, 'success');
+                                        GetDocumentAttachments();
+						        }
+						        else {
+							        Swal.fire('Warning', data.message, 'warning');
+							        HideProgress();
+						        }
+					        },
+					        error: function (err) {
+						        HideProgress();
+						        Swal.fire('Warning', err, 'warning');
+					        }
+				        });
+			        }
+		        };
+		        reader.readAsArrayBuffer(blob);
+	        }
+        }
+        };
+    var DeleteAttachment = function (DocNo, DocID) {
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                DocNo: DocNo,
+                tblID: 57000,
+                DocID: DocID,
+                lineNo: 0,
+            }),
+            contentType: "application/json; charset=utf-8",
+            processData: false,
+            url: '/Common/DeleteAttachedDocument',
+            success: function (data) {
+                HideProgress();
+                if (data.success === true) {
+                    Swal.fire('Success', data.message, 'success').then((result) => {
+                        if (result.isConfirmed) {
+                            GetDocumentAttachments(); // reload attachments after OK
+                        }
+                    });
+                } else {
+                    Swal.fire('Error', data.message, 'error').then((result) => {
+                        if (result.isConfirmed) {
+                            GetDocumentAttachments(); // still reload if error acknowledged
+                        }
+                    });
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err.responseText, 'warning');
+            }
+        });
+    };
+    var ViewAttachment = function (docNo, docId) {
+        $.ajaxSetup({ cache: false });
+        ShowProgress();
+        var viewer = $("#modalAttachmentBody");
+        viewer.empty();
+
+        $.ajax({
+            url: '/Common/ViewAttachedDocument',
+            type: "GET",
+            datatype: "json",
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            data: {
+                tableID: 57000,
+                documentNo: docNo,
+                documentType: "Imprest Memo",
+                documentId: docId
+            },
+            success: function (data) {
+                if (data.success) {
+                    if (data.base64) {
+                        var mimeType = data.mimeType || 'application/pdf';
+
+                        if (mimeType.startsWith('application/pdf')) {
+
+                            var byteCharacters = atob(data.base64);
+                            var byteNumbers = new Array(byteCharacters.length);
+                            for (var i = 0; i < byteCharacters.length; i++) {
+                                byteNumbers[i] = byteCharacters.charCodeAt(i);
+                            }
+                            var byteArray = new Uint8Array(byteNumbers);
+                            var blob = new Blob([byteArray], { type: mimeType });
+                            var blobUrl = URL.createObjectURL(blob);
+
+
+                            viewer.html('<iframe src="' + blobUrl + '" style="width:100%; height:500px;" frameborder="0"></iframe>');
+                        } else if (mimeType.startsWith('image/')) {
+
+                            viewer.html('<img src="data:' + mimeType + ';base64,' + data.base64 + '" style="width:100%;"/>');
+                        } else {
+
+                            var blob = b64toBlob(data.base64, mimeType);
+                            var url = window.URL.createObjectURL(blob);
+                            window.open(url, '_blank');
+                        }
+                        $("#myModalAttachment").modal("show");
+                    } else {
+
+                        window.location = '/Common/AttachmentDownload?fileName=' + data.message;
+                        Swal.fire('Success', 'Document Downloaded successfully', 'success');
+                    }
+                } else {
+                    Swal.fire('Warning', data.message, 'warning');
+                }
+                HideProgress();
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Error', err.responseText || 'An error occurred', 'error');
+            }
+        });
+    };
+    function getB64Str(buffer) {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
+
+
+    var GetWorkplans = function (selectedValue) {
+        var Global_Dimension_1_Code = $('#Global_Dimension_1_Code').val();
+        var Global_Dimension_2_Code = $('#Global_Dimension_2_Code').val()
+        var Strategic_Plan = $('#Strategic_Plan').val()
+        var Reporting_Year_Code = $('#Reporting_Year_Code').val()
+
+        if (!Global_Dimension_1_Code) {
+            return
+        }
+        if (!Global_Dimension_2_Code) {
+            return
+        }
+
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: "json",
+            url: "/ImprestMemo/WorkplansJson",
+            data: {
+                Global_Dimension_1_Code: Global_Dimension_1_Code,
+                Global_Dimension_2_Code: Global_Dimension_2_Code,
+                Strategic_Plan: Strategic_Plan,
+                Reporting_Year_Code: Reporting_Year_Code
+            },
+            success: function (data) {
+                var dropdown = $("#workplanDropdown");
+                dropdown.empty();
+                dropdown.append('<option value="">-- Select Option --</option>');
+
+                if (data && data.length > 0) {
+                    $.each(data, function (index, item) {
+                        dropdown.append('<option value="' + item.Code + '">' + item.Descriptions + ' (' + item.Code + ')' + '</option>');
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire("There is some problem processing your request. Please try again later.");
+            }
+        });
+    };
+    var GetWorkplansActivities = function (selectedValue) {
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: "json",
+            url: "/ImprestMemo/WorkplanActivitiesJson",
+            data: {
+                WorkPlanCode: selectedValue
+            },
+            success: function (data) {
+                var dropdown = $("#workplanDropdown2");
+                dropdown.empty();
+                dropdown.append('<option value="">-- Select Option --</option>');
+
+                if (data && data.length > 0) {
+                    $.each(data, function (index, item) {
+                        dropdown.append('<option value="' + item.Code + '">' + item.Descriptions + ' (' + item.Code + ')' + '</option>');
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire("There is some problem processing your request. Please try again later.");
+            }
+        });
+    };
+    var UpdateHeader = function () {
+
+        var DocNo = `@Model.No`;
+        var date = $("#Date").val();
+        var Subject = $("#Subject").val();
+        var Objective = $("#Objective").val();
+        var Imprest_Naration = $("#Imprest_Naration").val();
+        var Start_Date = $("#Start_Date").val();
+        var No_of_days = $("#No_of_days").val();
+        var Return_Date = $("#Return_Date").val();
+        var Due_Date = $("#Due_Date").val();
+        var Global_Dimension_1_Code = $("#Global_Dimension_1_Code").val();
+        var Global_Dimension_2_Code = $("#Global_Dimension_2_Code").val();
+        var Strategic_Plan = $("#Strategic_Plan").val();
+        var Reporting_Year_Code = $("#Reporting_Year_Code").val();
+        var Workplan_Code = $("#workplanDropdown").val();
+        var Activity_Code = $("#workplanDropdown2").val();
+        var Expenditure_Requisition_Code = $("#Expenditure_Requisition_Code").val();
+
+
+
+
+        if (!Subject) {
+            Swal.fire('Warning', "Subject is required", 'warning');
+            return;
+        }
+        if (!Objective) {
+            Swal.fire('Warning', "Objective IS required", 'warning');
+            return;
+        }
+
+
+        var Data = {
+            date: date,
+            Subject: Subject,
+            Objective: Objective,
+            Imprest_Naration: Imprest_Naration,
+            Start_Date: Start_Date,
+            No_of_days: No_of_days,
+            Return_Date: Return_Date,
+            Due_Date: Due_Date,
+            Global_Dimension_1_Code: Global_Dimension_1_Code,
+            Global_Dimension_2_Code: Global_Dimension_2_Code,
+            Strategic_Plan: Strategic_Plan,
+            Reporting_Year_Code: Reporting_Year_Code,
+            Workplan_Code: Workplan_Code,
+            Activity_Code: Activity_Code,
+            Expenditure_Requisition_Code: Expenditure_Requisition_Code
+        }
+        ShowProgress();
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/ImprestMemo/UpdateImprestMemoHeader",
+            data: JSON.stringify({ DocNo: DocNo, Data: Data }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.success) {
+                    Swal.fire('Success', data.message, 'success').then(() => {
+                        window.location.reload();
+                    });
+
+
+                }
+                else {
+                    Swal.fire('Warning', data.message, 'warning');
+                    HideProgress();
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    };
+
+
+
+</script>
+

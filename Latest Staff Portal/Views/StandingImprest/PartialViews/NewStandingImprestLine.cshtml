@@ -1,0 +1,133 @@
+﻿@model Latest_Staff_Portal.ViewModel.StandingImprestLine
+
+
+<div class="row">
+    @*<div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("No", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.EditorFor(model => model.No, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.No, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @*<div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Account Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <select class="form-control" id="Account_Type">
+                <option value="">Select Option</option>
+                <option value="1">G/L Account</option>
+            </select>
+
+        </div>
+    </div>*@
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Label("Account No", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.DropDownListFor(model => model.Account_No, Model.ListOfGl, "Select Option",  new { @class = "form-control", @id = "Account_No2" } )
+            @Html.ValidationMessageFor(model => model.Account_No, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @id = "Description" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Label("Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @id = "Amount" } })
+            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="col-md-6" hidden>
+        <div class="form-group">
+            @Html.Label("Region", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.DropDownListFor(model => model.Shortcut_Dimension_1_Code, Model.ListOfDim1, "Select Option", new { @class = "form-control", @id = "Shortcut_Dimension_1_Code" })
+            @Html.ValidationMessageFor(model => model.Shortcut_Dimension_1_Code, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group" hidden>
+            @Html.Label("Department", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.Shortcut_Dimension_2_Code, Model.ListOfDim2, "Select Option", new { @class = "form-control", @id = "Shortcut_Dimension_2_Code" })
+            
+            @Html.ValidationMessageFor(model => model.Shortcut_Dimension_2_Code, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Economic Item", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.Vote_Item, Model.ListOfGl, "Select Option", new { @class = "form-control", @id = "Vote_Item" })
+
+            @Html.ValidationMessageFor(model => model.Vote_Item, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Payee Bank", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.Payee_Bank_Code, Model.ListOfBanks, "Select Option", new { @class = "form-control", @id = "Payee_Bank_Code", onchange= "GetBankBranches(this.value)" })
+  
+            @Html.ValidationMessageFor(model => model.Payee_Bank_Code, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+
+    @*<div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Payee Bank Branch", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <select class="form-control" id="branchCodeDropdown">
+                <option value="">Select Option</option>
+            </select>
+           
+        </div>
+    </div>*@
+
+
+</div>
+<div class="text-center">
+    <button class="btn btn-primary action-buttons" onclick="SubmitStandingImprestLine();"> Submit </button>
+</div>
+
+
+
+<script>
+    var GetBankBranches = function (selectedValue) {     
+        if (!selectedValue) {
+            return
+        }
+    
+
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: "json",
+            url: "/StandingImprest/BankBranchesJson",
+            data: { BankCode: selectedValue },
+            success: function (data) {
+                var dropdown = $("#branchCodeDropdown");
+                dropdown.empty();
+                dropdown.append('<option value="">-- Select Option --</option>');
+
+                if (data && data.length > 0) {
+                    $.each(data, function (index, item) {
+                        dropdown.append('<option value="' + item.Code + '">' + item.Descriptions + ' (' + item.Code + ')' + '</option>');
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire("There is some problem processing your request. Please try again later.");
+            }
+        });
+    };
+
+
+</script>

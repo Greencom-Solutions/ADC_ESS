@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "SalaryAdvance";
+    Layout = "~/Views/Shared/Sitemaster.cshtml";
+}
+
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" onclick="Dashboard();">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Salary Advance List</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="card">
+    <div class="card-header">
+        <div style="text-align:right">
+            <button class="btn action-buttons" onclick="NewSalaryAdvance();">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> New Salary Advance
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="divSalaryAdvanceList"></div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <label id="labelF"></label>
+                </h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect" data-bs-dismiss="modal">Close</button>
+                @*<input type="button" class="btn btn-primary waves-effect waves-light" value="Submit" onclick="SubmitSalaryAdvance();" />*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/js/ShowProgression.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadSalaryAdvanceList();
+    var Successmsg = '@Request.RequestContext.HttpContext.Session["SuccessMsg"]';
+    if (Successmsg != "") {
+        Swal.fire('Success', Successmsg, 'success', true);
+        $.ajax({
+            type: "POST",
+            url: "/Common/NullibySessions"
+        });
+    }
+});
+
+var LoadSalaryAdvanceList = function () {
+    ShowProgress();
+    $.ajax({
+        async: true,
+        type: "GET",
+        dataType: 'HTML',
+        contentType: false,
+        processData: false,
+        url: "/SalaryAdvance/SalaryAdvanceList",
+        success: function (data) {
+            $("#divSalaryAdvanceList").empty().html(data);
+            HideProgress();
+        },
+        error: function () {
+            HideProgress();
+            Swal.fire("There is some problem to process your request. Please try after some time");
+        }
+    });
+    }
+
+    var ViewSalaryAdvanceDoc = function (Code) {
+        ShowProgress();
+        var form = $('<form>', {
+            action: '/SalaryAdvance/SalaryAdvanceDocumentView',
+            method: 'POST'
+        }).append($('<input>', {
+            type: 'hidden',
+            name: 'code',
+            value: Code
+        }));
+        form.appendTo('body').submit();
+    }
+
+    var NewSalaryAdvance = function () {
+        $("#labelF").text("New Salary Advance");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            datatype: "json",
+            contentType: "application/json; charset = utf-8",
+            processData: false,
+            url: '/SalaryAdvance/NewSalaryAdvance',
+            success: function (data) {
+                $("#modalBody").html(data);
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    }
+
+    var SubmitNewSalaryAdvance = function () {
+        var isValid = true;
+        var employeeNo = $("#employeeNo").val();
+       
+        var amountRequested = $("#amountRequested").val();
+        if (!amountRequested) {
+            Swal.fire('Warning', "Enter Request Amount", 'warning');
+            return false;
+        }
+        var installment = $("#installment").val();
+        if (!installment) {
+            Swal.fire('Warning', "Installment is required", 'warning');
+            return false;
+        }
+        var reasonText = $("#reasonText").val();
+        if (!reasonText) {
+            Swal.fire('Warning', "Reason is required", 'warning');
+            return false;
+        }
+
+        var newsalaryadvance = {
+            Employeeno: $("#employeeNo").val(),
+            Amountrequested: parseFloat($("#amountRequested").val()),
+            Installment: parseFloat($("#installment").val()),
+            Reasontext: $("#reasonText").val()
+        };
+
+        ShowProgress();
+        $.ajax({
+            type: "POST",
+            url: "/SalaryAdvance/SubmitNewSalaryAdvance",
+            data: JSON.stringify(newsalaryadvance),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                HideProgress();
+                if (data.success) {
+                    $("#myModal").modal("hide");
+                    Swal.fire('Success', data.message, 'success');
+                    if(data.docNo) {
+                        ViewNewSalaryAdvanceDoc(data.docNo);
+                    } else {
+                        LoadNewSalaryAdvanceList();
+                    }
+                    } else {
+                        Swal.fire('Warning', data.message, 'warning');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err.responseText, 'warning');
+            }
+        });
+    }
+    // Function to navigate back to list - implement as needed
+    function SalaryAdvanceLink() {
+        window.location.href = '/SalaryAdvance';
+    }
+</script>

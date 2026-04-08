@@ -1,0 +1,162 @@
+﻿@model IEnumerable<Latest_Staff_Portal.ViewModel.LabSampleMgtLines>
+
+@{
+    ViewBag.Title = "LabSampleManagementLinesPartialView";
+    var Status = ViewBag.Status;
+}
+
+
+<div class="table-responsive">
+    <table id="datatable-labSampleLines" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        <thead>
+            <tr>
+                @*<th>Line No</th>
+                    <th>Sample ID</th>*@
+                <th>Sample Code</th>
+                <th>Type of Sampling</th>
+                <th>Sample Description</th>
+                <th>Sample Type</th>
+                <th>Source</th>
+                <th>Storage Location</th>
+                <th>Sampling Date</th>
+                <th>Date Of Submission</th>
+                <th>Tested</th>
+                <th>Tested By</th>
+                <th>Analysed At</th>
+                <th>Results</th>
+                @*<th>Exported At</th>*@
+                <th>Turnaround Time</th>
+                <th>Staff No</th>
+                <th>Staff Name</th>
+                <th>Quantity (ml)</th>
+                <th>Notes</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>@Html.DisplayFor(modelItem => item.Line_No)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Sample_ID)</td>*@
+                    <td>@Html.DisplayFor(modelItem => item.Sample_Code)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Type_of_Sampling)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sample_Description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sample_Type)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Source)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Storage_Location)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sampling_Date)</td>
+                    <td id="Received_At_@item.Line_No">@Html.DisplayFor(modelItem => item.Received_At)</td>
+                    <td class="text-center">
+                        @*@Html.DisplayFor(modelItem => item.Tested)*@
+                        <input type="checkbox"
+                            id="Tested_@item.Line_No"
+                            class="form-check-input tested-checkbox"
+                            @(item.Tested ? "checked" : "") />
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.TestedBy)</td>
+                    <td id="Analysed_At_@item.Line_No">@Html.DisplayFor(modelItem => item.Analysed_At)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Results)</td>
+                    @*<td>@Html.DisplayFor(modelItem => item.Exported_At)</td>*@
+                    <td id="TurnAround_Time_@item.Line_No"></td>
+                    <td>@Html.DisplayFor(modelItem => item.Staff_No)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Staff_Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Quantity_ml)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Notes)</td>
+                    <td>
+                        @if (Status == "Open")
+                        {
+
+                            <button class="btn btn-primary btn-sm ml-3 action-buttons2"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Update"
+                                    onclick="UpdateLabSampleLine('@item.Line_No','@item.Sample_Code','@item.Sample_ID', '@item.Type_of_Sampling', '@item.Sample_Description', '@item.Sample_Type', '@item.Source', '@item.Storage_Location', '@item.Sampling_Date', '@item.Received_At', '@item.Tested.ToString()', '@item.TestedBy', '@item.Analysed_At', '@item.Results', '@item.Staff_No', '@item.Quantity_ml', '@item.Notes');">
+                                Update
+                            </button>
+                            <button class="btn btn-danger btn-sm ml-3" data-toggle="tooltip" data-placement="top" title="Delete" onclick="DeleteLabSampleLine('@item.Sample_ID', '@item.Line_No');">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<div style="text-align:right">
+    @if (Status == "Open")
+    {
+        <button class="btn btn-primary btn-sm action-buttons2" onclick="AddLabSampleLine();">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Line
+        </button>
+    }
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        calculateTurnAroundTimeForAll();
+
+        $("#datatable-labSampleLines").DataTable({
+            lengthChange: true,
+            lengthMenu: [5, 10, 25, 50, 100]
+        });
+    });
+
+    // ✅ Loop through each row and calculate the turnaround time
+    function calculateTurnAroundTimeForAll() {
+        // Select all rows with Received_At_* IDs
+        $('[id^="Received_At_"]').each(function () {
+            var lineNo = this.id.split('_')[2]; // Extract Line_No
+            var receivedAt = $(this).text().trim();
+            var analysedAt = $('#Analysed_At_' + lineNo).text().trim();
+
+            if (receivedAt && analysedAt) {
+                var date1 = parseDateTime(receivedAt);
+                var date2 = parseDateTime(analysedAt);
+
+                if (!isNaN(date1.getTime()) && !isNaN(date2.getTime())) {
+                    var diffMs = date2 - date1;
+                    var diffDays = Math.abs(diffMs / (1000 * 60 * 60 * 24)).toFixed(2);
+                    $('#TurnAround_Time_' + lineNo).text(diffDays + ' day(s)');
+                } else {
+                    $('#TurnAround_Time_' + lineNo).text('Invalid date');
+                }
+            } else {
+                $('#TurnAround_Time_' + lineNo).text('N/A');
+            }
+        });
+    }
+
+    // ✅ Handles your "dd/MM/yyyy HH:mm:ss" date format
+    function parseDateTime(str) {
+        // Example: "11/05/2025 00:00:00"
+        var parts = str.split(' ');
+        var dateParts = parts[0].split('/');
+        var timeParts = parts[1] ? parts[1].split(':') : [0, 0, 0];
+
+        return new Date(
+            dateParts[2],              // year
+            dateParts[1] - 1,          // month (0-based)
+            dateParts[0],              // day
+            timeParts[0],              // hour
+            timeParts[1],              // minute
+            timeParts[2]               // second
+        );
+    }
+
+    //$('.tested-checkbox').on('change', function () {
+    //    var lineNo = this.id.split('_')[1];
+    //    var isChecked = $(this).is(':checked');
+
+    //    console.log('Line ' + lineNo + ' tested:', isChecked);
+
+    //    alert(isChecked)
+
+    //    // You can also send the change to your backend here if needed
+    //});
+
+
+
+</script>

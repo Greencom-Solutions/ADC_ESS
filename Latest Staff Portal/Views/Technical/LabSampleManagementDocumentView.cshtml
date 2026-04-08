@@ -1,0 +1,664 @@
+﻿@model Latest_Staff_Portal.ViewModel.LabSampleManagement
+
+@{
+    ViewBag.Title = "LabSampleManagementDocumentView";
+    Layout = "~/Views/Shared/Sitemaster.cshtml";
+}
+
+
+<style>
+    thead {
+        background-color: black;
+        color: white;
+    }
+
+    hr {
+        margin: 4px;
+    }
+
+    .BtnPadding {
+        padding: 1px;
+        font-size: 12px;
+    }
+</style>
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Technical/LabSampleManagementList">Lab Sample List</a></li>
+                <li class="breadcrumb-item active">Lab Sample Management Document (@Model.Sample_ID)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Lab Sample Management Document (@Model.Sample_ID)</h4>
+        <div style="text-align:right">
+            @*@if (Model.Status == "Open")
+            {
+                <button class="btn btn-primary action-buttons2" onclick="SendDocForApproval()">
+                    <i class="fa fa-check" aria-hidden="true"></i> Send For Review
+                </button>
+
+            }
+            @if (Model.Status == "Under Review")
+            {
+                <button class="btn btn-primary action-buttons2" onclick="CancelDocApproval()">
+                    <i class="fa fa-close" aria-hidden="true"></i> Cancel Approval Request
+                </button>
+
+                <button class="btn btn-secondary btn-sm" onclick="ViewApprovalTrail('@Model.Sample_ID');">
+                    <i class="fa fa-list" aria-hidden="true"></i> Approval Trail
+                </button>
+            }
+
+            <button class="btn btn-primary action-buttons2" onclick="ViewComments('@Model.Sample_ID');">
+                <i class="fa fa-list" aria-hidden="true"></i> Approval / Rejection Comments
+            </button>*@
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Document No", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Sample_ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Sample_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Month Date", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Month_Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Month_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Month Name", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Month_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Month_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Region", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Global_Dimension_1_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Global_Dimension_1_Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Department", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Global_Dimension_2_Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Global_Dimension_1_Code, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            @*<div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Received At", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.EditorFor(model => model.Received_At, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Received_At" } })
+                        @Html.ValidationMessageFor(model => model.Received_At, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Analysed At", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.EditorFor(model => model.Analysed_At, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Analysed_At, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Exported At", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.EditorFor(model => model.Exported_At, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Exported_At" } })
+                        @Html.ValidationMessageFor(model => model.Exported_At, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Turnaround Time", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <input class="form-control" type="text" id="TurnAround_Time" value="" readonly />
+
+                    </div>
+                </div>*@
+
+            @*<div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Status", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Created By", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Created_By, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Created_By, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Time Created", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Time_Created, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Time_Created, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Date Created", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Date_Created, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Date_Created, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <hr />
+        @{
+            if (Model.Status != "Pending Approval")
+            {
+                @*<div align="center" id="DivUpdateButton">
+                        <input type="button" class="btn btn-primary action-buttons" value="Update Header" onclick="UpdateHeader();" />
+                    </div>*@
+            }
+        }
+        <div id="DivPurchaseRegLines" style="margin: 10px 20px">
+            <hr style="border:1px solid black" />
+            <b>Lab Sample Lines</b>
+            <hr />
+            <div id="divLabSampleLines"></div>
+            <hr style="border:1px solid black" />
+        </div>
+
+
+
+    </div>
+</div>
+
+
+@*//////////////////////Modal////////////////////////////*@
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h4 class="modal-title" id="lblTle"></h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect " data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        LoadLabSampleLines(`@Model.Sample_ID`);
+
+
+
+
+    });
+
+
+    var LoadLabSampleLines = function (Sample_ID) {
+        var Approval_Status = '@Model.Status';
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            datatype: "html",
+            contentType: "application/json; charset = utf-8",
+            processData: false,
+            data: JSON.stringify({ Sample_ID: Sample_ID, Status: Approval_Status }),
+            url: "/Technical/LabSampleManagementLinesPartialView",
+            success: function (data) {
+                $("#divLabSampleLines").html(data);
+                //calculateTurnAroundTime();
+                HideProgress();
+            },
+            error: function () {
+                //calculateTurnAroundTime();
+                HideProgress();
+                Swal.fire("There is some problem to process your request. Please try after some time");
+            }
+        });
+    };
+    var AddLabSampleLine = function () {
+        var Sample_ID = `@Model.Sample_ID`;
+        $("#lblTle").text("New Lab Sample Line");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: "html",
+            url: '/Technical/NewLabSampleLine',
+            data: {
+                Sample_ID: Sample_ID,
+            },
+            success: function (data) {
+                $("#modalBody").html(data);
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err.responseText, 'warning');
+            }
+        });
+    };
+
+    var SubmitLabSampleLine = function () {
+        // Step 1: Get all values
+        var Sample_ID = $('#Sample_ID').val();
+        var Sample_Code = $('#Sample_Code').val();
+        var Line_No = $('#Line_No').val();
+        var Type_of_Sampling = $('#Type_of_Sampling').val();
+        var Sample_Description = $('#Sample_Description').val();
+        var Sample_Type = $('#Sample_Type').val();
+        var Source = $('#Source').val();
+        var Storage_Location = $('#Storage_Location').val();
+        var Sampling_Date = $('#Sampling_Date').val();
+        var Received_At = $('#Received_At').val();
+        var Tested = $('#TestedSwitch').is(':checked');
+
+
+        if (Tested) {
+            var TestedBy = $('#TestedBy').val() || "";
+            var Analysed_At = $('#Analysed_At').val();
+            var Results = $('#Results').val();
+        }
+        else {
+            var TestedBy =  "";
+            var Analysed_At = "";
+            var Results = "";
+
+        }
+
+
+
+        var Quantity_ml = $('#Quantity_ml').val();
+        var Notes = $('#Notes').val();
+
+        // Step 2: Validate required fields
+        const requiredFields = {
+            Sample_ID: 'Sample ID',
+            Sample_Code: 'Sample Code',
+            Type_of_Sampling: 'Type Of Sampling',
+            Sample_Description: 'Sample Description',
+            Sample_Type: 'Sample Type',
+            Source: 'Source',
+            Storage_Location: 'Storage Location',
+            Sampling_Date: 'Sampling Date',
+            Received_At: 'Received Date',
+
+            Quantity_ml: 'Quantity',
+            Notes: 'Notes'
+        };
+
+        for (const [id, label] of Object.entries(requiredFields)) {
+            const field = $(`#${id}`);
+            if (!field.val()) {
+                Swal.fire('Warning', `${label} is required`, 'warning');
+                field.focus(); // automatically focus the invalid field
+                return;
+            }
+        }
+
+        // Step 3: Build payload
+        var data = {
+            Sample_ID: Sample_ID,
+            Sample_Code: Sample_Code,
+            Line_No:Line_No,
+            Type_of_Sampling: Type_of_Sampling,
+            Sample_Description: Sample_Description,
+            Sample_Type: Sample_Type,
+            Source: Source,
+            Storage_Location: Storage_Location,
+            Sampling_Date: Sampling_Date,
+            Received_At: Received_At,
+            Tested: Tested,
+            TestedBy: TestedBy,
+            Analysed_At: Analysed_At,
+            Results: Results,
+            Quantity_ml: Quantity_ml,
+            Notes: Notes
+        };
+
+        // Step 4: Submit via AJAX
+        ShowProgress();
+
+        $.ajax({
+            type: "POST",
+            url: '/Technical/SubmitLabSampleLine',
+            data: JSON.stringify({ data }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                HideProgress();
+                if (response.success) {
+                    Swal.fire('Success', 'Record successfully submitted', 'success').then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire('Error', response.message, 'error');
+                }
+            },
+            error: function (xhr) {
+                HideProgress();
+                Swal.fire('Error', 'An unexpected error occurred while submitting data.', 'error');
+                console.error(xhr);
+            }
+        });
+    };
+
+
+    var UpdateLabSampleLine = function (
+        Line_No,
+        Sample_Code,
+        Sample_ID,
+        Type_of_Sampling,
+        Sample_Description,
+        Sample_Type,
+        Source,
+        Storage_Location,
+        Sampling_Date,
+        Received_At,
+        Tested,
+        TestedBy,
+        Analysed_At,
+        Results,
+        Staff_No,
+        Quantity_ml,
+        Notes) {
+
+        //alert(Tested);
+
+        currentData = {
+            Line_No: Line_No,
+            Sample_Code: Sample_Code,
+            Sample_ID: Sample_ID,
+            Type_of_Sampling: Type_of_Sampling,
+            Sample_Description: Sample_Description,
+            Sample_Type: Sample_Type,
+            Source: Source,
+            Storage_Location: Storage_Location,
+            Sampling_Date: Sampling_Date,
+            Received_At: Received_At,
+            Tested: Tested,
+            TestedBy: TestedBy,
+            Analysed_At: Analysed_At,
+            Results: Results,
+            Staff_No: Staff_No,
+            Quantity_ml: Quantity_ml,
+            Notes: Notes
+        }
+
+        console.log(currentData)
+
+
+        $("#lblTle").text("Update Lab Sample Line");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            url: '/Technical/updateLabSampleLine',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            data: JSON.stringify({ currentData: currentData }),
+            success: function (html) {
+                $("#modalBody").html(html);
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err.responseText, 'warning');
+            }
+        });
+    };
+
+
+
+    var DeleteLabSampleLine = function (Sample_ID, Line_No) {
+        var Sample_ID = `@Model.Sample_ID`;
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This lab sample line will be permanently deleted.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                ShowProgress();
+                $.ajax({
+                    async: true,
+                    type: "POST",
+                    datatype: "json",
+                    contentType: "application/json; charset=utf-8",
+                    processData: false,
+                    data: JSON.stringify({ Sample_ID: Sample_ID, Line_No: Line_No }),
+                    url: '/Technical/DeleteLabSampleLine',
+                    success: function (data) {
+                        HideProgress();
+                        if (data.success === true) {
+                            Swal.fire('Deleted!', data.message, 'success').then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire('Error', data.message, 'error');
+                        }
+                    },
+                    error: function (err) {
+                        HideProgress();
+                        Swal.fire('Warning', err.responseText || 'Something went wrong.', 'warning');
+                    }
+                });
+            }
+        });
+    };
+
+    var SendDocForApproval = function () {
+        var Sample_ID = `@Model.Sample_ID`;
+        $.ajaxSetup({ cache: false });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to send this document for approval!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Send it!'
+        }).then((result) => {
+            if (result.value) {
+                ShowProgress();
+                $.ajax({
+                    async: true,
+                    type: "POST",
+                    datatype: "json",
+                    data: JSON.stringify({ Sample_ID: Sample_ID }),
+                    contentType: "application/json; charset = utf-8",
+                    processData: false,
+                    url: '/Technical/SendLabSampleDocForApproval',
+                    success: function (data) {
+                        if (data.success == true) {
+                            HideProgress();
+                            window.location.reload();
+                        }
+                        else {
+                            HideProgress();
+                            Swal.fire('Error', data.message, 'error');
+                        }
+                    },
+                    error: function (err) {
+                        HideProgress();
+                        Swal.fire('Warning', err, 'warning');
+                    }
+                });
+            }
+            else {
+                Swal.fire('Cancelled', 'Document not sent for approval', 'error');
+            }
+        });
+    }
+    var CancelDocApproval = function () {
+        var Sample_ID = `@Model.Sample_ID`;
+        $.ajaxSetup({ cache: false });
+          Swal.fire({
+              title: 'Are you sure?',
+              text: "You want to Cancel this document  approval request?",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, Send it!'
+          }).then((result) => {
+              if (result.value) {
+                  ShowProgress();
+                  $.ajax({
+                      async: true,
+                      type: "POST",
+                      datatype: "json",
+                      data: JSON.stringify({ Sample_ID: Sample_ID }),
+                      contentType: "application/json; charset = utf-8",
+                      processData: false,
+                      url: '/Technical/CancelLabSampleDocApproval',
+                      success: function (data) {
+                          if (data.success == true) {
+                              HideProgress();
+                              window.location.reload();
+                          }
+                          else {
+                              HideProgress();
+                              Swal.fire('Error', data.message, 'error');
+                          }
+                      },
+                      error: function (err) {
+                          HideProgress();
+                          Swal.fire('Warning', err, 'warning');
+                      }
+                  });
+              }
+              else {
+                  Swal.fire('Cancelled', 'Document not sent for approval', 'error');
+              }
+          });
+      }
+    var ViewApprovalTrail = function (DocNo) {
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            datatype: "json",
+            data: JSON.stringify({ DocNo: DocNo }),
+            contentType: "application/json; charset = utf-8",
+            processData: false,
+            url: '/Common/DocumentApprovalTrail',
+            success: function (data) {
+                $("#modalBody").html(data);
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    }
+
+    function calculateTurnAroundTime() {
+        var receivedAt = document.getElementById("Received_At").value;
+        var exportedAt = document.getElementById("Exported_At").value;
+
+        if (receivedAt && exportedAt) {
+            // Parse dates properly
+            var date1 = new Date(receivedAt);
+            var date2 = new Date(exportedAt);
+
+            if (!isNaN(date1.getTime()) && !isNaN(date2.getTime())) {
+                // Difference in milliseconds
+                var diffMs = date2 - date1;
+                // Convert ms to days (absolute value to avoid negatives)
+                var diffDays = Math.abs(Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+
+                // Fill the Turnaround Time field
+                document.getElementById("TurnAround_Time").value = diffDays + " day(s)";
+            }
+        }
+    }
+
+    var ViewComments = function (DocNo) {
+
+        $('#myModalLabel').text("Document Comments");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            data: { DocNo: DocNo }, // no need to JSON.stringify for simple string
+            url: '/Common/DocumentApprovalComments',
+            success: function (data) {
+                $("#modalBody").html(data); // ✅ insert HTML
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (xhr, status, error) {
+                HideProgress();
+                Swal.fire('Warning', error || "An unexpected error occurred", 'warning');
+            }
+        });
+    };
+
+</script>

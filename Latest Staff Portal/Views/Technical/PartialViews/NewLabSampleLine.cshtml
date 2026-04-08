@@ -1,0 +1,324 @@
+﻿@model Latest_Staff_Portal.ViewModel.LabSampleMgtLines
+
+@{
+    ViewBag.Title = "NewLabSampleLine";
+    var Sample_ID = ViewBag.Sample_ID;
+}
+
+
+<style>
+    /* --- Custom Switch Styling --- */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 25px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 25px;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 3.5px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+    input:checked + .slider {
+        background-color: #4CAF50;
+    }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+    .switch-label {
+        margin-left: 10px;
+        font-weight: 500;
+    }
+</style>
+
+
+
+<div class="row">
+    @if (Model.Line_No != 0)
+    {
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Sample ID", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.EditorFor(model => model.Sample_ID, new { htmlAttributes = new { @class = "form-control", @id = "Sample_ID", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Sample_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Line No", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.EditorFor(model => model.Line_No, new { htmlAttributes = new { @class = "form-control", @id = "Line_No", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Line_No, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Sample Code", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.EditorFor(model => model.Sample_Code, new { htmlAttributes = new { @class = "form-control", @id = "Sample_Code" } })
+            @Html.ValidationMessageFor(model => model.Sample_Code, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Type Of Sampling", htmlAttributes: new { @class = "control-label col-md-2" })
+            <select class="form-control" id="Type_of_Sampling">
+                <option value="" selected hidden>Select Option</option>
+                <option value="1" @(Model.Type_of_Sampling == "Market Surveillance" ? "selected" : "")>Market Surveillance</option>
+                <option value="2" @(Model.Type_of_Sampling == "Private Sample" ? "selected" : "")>Private Sample</option>
+                <option value="3" @(Model.Type_of_Sampling == "Routine Surveillance" ? "selected" : "")>Routine Surveillance</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Sample Description", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.EditorFor(model => model.Sample_Description, new { htmlAttributes = new { @class = "form-control", @id = "Sample_Description" } })
+            @Html.ValidationMessageFor(model => model.Sample_Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Sample Type", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.EditorFor(model => model.Sample_Type, new { htmlAttributes = new { @class = "form-control", @id = "Sample_Type" } })
+            @Html.ValidationMessageFor(model => model.Sample_Type, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Source", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @Html.EditorFor(model => model.Source, new { htmlAttributes = new { @class = "form-control", @id = "Source" } })
+            @Html.ValidationMessageFor(model => model.Source, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Storage Location", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.Storage_Location, Model.ListOfRegions, "Select Option", new { @class = "form-control", @id = "Storage_Location" })
+
+        </div>
+    </div>
+
+    @{
+        string Sampling_Date_Formatted = "";
+        if (DateTime.TryParse(Model.Sampling_Date, out DateTime parsedDate1))
+        {
+            Sampling_Date_Formatted = parsedDate1.ToString("dd/MM/yyyy");
+        }
+    }
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Sampling Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            <input type="text"
+                   class="form-control"
+                   placeholder="dd/mm/yyyy"
+                   id="Sampling_Date"
+                   value="@Sampling_Date_Formatted"
+                   onkeydown="return false;"
+                   autocomplete="off" />
+        </div>
+    </div>
+
+
+
+    @{
+        string Received_At_Formatted = "";
+        if (DateTime.TryParse(Model.Received_At, out DateTime parsedDate2))
+        {
+            Received_At_Formatted = parsedDate2.ToString("dd/MM/yyyy");
+        }
+    }
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Received At", htmlAttributes: new { @class = "control-label col-md-2" })
+            <input type="text"
+                   class="form-control"
+                   placeholder="dd/mm/yyyy"
+                   id="Received_At"
+                   value="@Received_At_Formatted"
+                   onkeydown="return false;"
+                   autocomplete="off" />
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Quantity", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.Quantity_ml, new { htmlAttributes = new { @class = "form-control", @id = "Quantity_ml" } })
+            @*<input class="form-control" type="text" id="Quantity_ml" />*@
+            @*@Html.EditorFor(model => model.Quantity_ml, new { htmlAttributes = new { @class = "form-control", @id = "Quantity_ml" } })
+                @Html.ValidationMessageFor(model => model.Quantity_ml, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+
+            @Html.Label("Tested", htmlAttributes: new { @class = "control-label col-md-2" })
+            <br />
+            <label class="switch">
+                <input type="checkbox" id="TestedSwitch" name="Tested" value="true"
+                       @(Model.Tested ? "checked" : "")
+                       onchange="onTestedToggle(this)" />
+                <span class="slider round"></span>
+            </label>
+            <span id="switchStatus" class="switch-label">
+                @(Model.Tested ? "Yes" : "No")
+            </span>
+        </div>
+    </div>
+    <div class="col-md-6" id="divTestedBy">
+        <div class="form-group">
+            @Html.Label("Tested By", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.DropDownListFor(model => model.TestedBy, Model.ListOfEmployees, "Select Option", new { @class = "form-control", @id = "TestedBy" })
+
+        </div>
+    </div>
+    @{
+        string Analysed_At_Formatted = "";
+        if (DateTime.TryParse(Model.Analysed_At, out DateTime parsedDate3))
+        {
+            Analysed_At_Formatted = parsedDate3.ToString("dd/MM/yyyy");
+        }
+    }
+    <div class="col-md-6" id="divTestedAt">
+        <div class="form-group">
+            @Html.Label("Tested At", htmlAttributes: new { @class = "control-label col-md-2" })
+            <input type="text"
+                   class="form-control"
+                   placeholder="dd/mm/yyyy"
+                   id="Analysed_At"
+                   value="@Analysed_At_Formatted"
+                   onkeydown="return false;"
+                   autocomplete="off" />
+        </div>
+    </div>
+
+
+
+</div>
+<div class="row">
+    <div class="col-md-6" id="divResults">
+        <div class="form-group">
+            @Html.Label("Results", htmlAttributes: new { @class = "control-label col-md-2" })
+            <textarea class="form-control" rows="3" id="Results">@Model.Results</textarea>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Notes", htmlAttributes: new { @class = "control-label col-md-2" })
+            <textarea class="form-control" rows="3" id="Notes">@Model.Notes</textarea>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+
+    <button class="btn btn-primary action-buttons" onclick="SubmitLabSampleLine();"> Submit </button>
+
+
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        // --- Initialize Datepickers ---
+        const $dateFields = $('#Received_At, #Analysed_At, #Sampling_Date');
+        $dateFields.datepicker({
+            changeMonth: true,
+            changeYear: true,
+            autoclose: true,
+            yearRange: '-1:+2',
+            showOtherMonths: true,
+            dateFormat: 'dd/mm/yy'
+        });
+
+        // Ensure correct positioning of datepicker popup
+        $dateFields.focus(function () {
+            $("#ui-datepicker-div").position({
+                my: "left top",
+                at: "left bottom",
+                of: $(this)
+            });
+        });
+
+
+        // --- Fix visibility toggle based on TestedSwitch state ---
+        const testedSwitch = document.getElementById("TestedSwitch");
+
+        if (testedSwitch.checked) {
+            // Show related fields when tested = true
+            $("#divTestedBy, #divTestedAt, #divResults").removeAttr("hidden");
+            $("#switchStatus").text("Yes");
+        } else {
+            // Hide them when tested = false
+            $("#divTestedBy, #divTestedAt, #divResults").attr("hidden", true);
+            $("#switchStatus").text("No");
+        }
+
+
+
+
+    });
+
+
+
+
+
+    function onTestedToggle(checkbox) {
+        const isChecked = checkbox.checked;
+        const status = document.getElementById("switchStatus");
+        const $divs = $("#divTestedBy, #divTestedAt, #divResults");
+
+        if (isChecked) {
+            status.textContent = "Yes";
+            status.style.color = "green";
+            $divs.removeAttr("hidden");
+        } else {
+            status.textContent = "No";
+            status.style.color = "red";
+            $divs.attr("hidden", true);
+        }
+    }
+</script>

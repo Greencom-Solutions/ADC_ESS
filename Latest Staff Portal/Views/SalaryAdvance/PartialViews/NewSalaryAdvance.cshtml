@@ -1,0 +1,47 @@
+﻿@model Latest_Staff_Portal.ViewModel.NewSalaryAdvanceViewModel
+
+<div class="row">
+
+    <div class="col-md-12" hidden>
+        <div class="form-group">
+            <label>Employee</label>
+            @Html.EditorFor(model => model.Employeeno, new { htmlAttributes = new { @class = "form-control", @id = "employeeNo" } })
+
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Amount Requested</label>
+            @Html.EditorFor(model => model.Amountrequested, new { htmlAttributes = new { @class = "form-control", @id = "amountRequested" } })
+
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Installment</label>     
+            @Html.EditorFor(model => model.Installment, new { htmlAttributes = new { @class = "form-control", @id = "installment" } })
+
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group"> 
+            <label>Reason</label>
+            @Html.EditorFor(model => model.Reasontext, new { htmlAttributes = new { @class = "form-control", @id = "reasonText" } })
+
+        </div>
+    </div>
+
+</div>
+
+<div class="text-center">
+    <input type="button" class="btn btn-primary action-buttons" value="Submit" onclick="SubmitNewSalaryAdvance();" />   
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

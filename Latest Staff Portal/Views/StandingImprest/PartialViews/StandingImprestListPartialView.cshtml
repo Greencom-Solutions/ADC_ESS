@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Latest_Staff_Portal.ViewModel.StandingImprest>
+
+
+<div class="table-responsive">
+    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        <thead style="background-color:black;color:white">
+            <tr>
+                <th>Action</th>
+                <th>No</th>
+                @*<th>Dimension Set ID</th>*@
+                @*<th>Date</th>
+                    <th>Posting Date</th>*@
+                <th>Account No</th>
+                <th>Account Name</th>
+                <th>Standing Imprest Type</th>
+                @*<th>Cheque Date</th>
+                    <th>Paying Bank Account</th>
+                    <th>Bank Name</th>*@
+                <th>Payment Narration</th>
+                @*<th>Currency Code</th>*@
+                <th>Total Amount</th>
+                @*<th>Shortcut Dimension 1 Code</th>
+                    <th>Department Name</th>
+                    <th>Shortcut Dimension 2 Code</th>
+                    <th>Project Name</th>
+                    <th>Available Amount</th>
+                    <th>Committed Amount</th>
+                    <th>AIE Receipt</th>
+                    <th>Strategic Plan</th>
+                    <th>Reporting Year Code</th>
+                    <th>Workplan Code</th>
+                    <th>Activity Code</th>*@
+                <th>Status</th>
+                @*<th>Posted</th>
+                    <th>Posted By</th>
+                    <th>Posted Date</th>
+                    <th>Expenditure Requisition Code</th>
+                    <th>Payment Ref No</th>
+                    <th>Payment Date</th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input class="btn btn-primary btn-sm action-buttons3" type="button" onclick="ViewDoc('@item.No','@item.Status');" value="Select" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.No)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Dimension_Set_ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Posting_Date)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account_No)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Account_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Standing_Imprest_Type)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Cheque_Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Paying_Bank_Account)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Bank_Name)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payment_Narration)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Currency_Code)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total_Amount)
+                    </td>
+                    @*   <td>
+                            @Html.DisplayFor(modelItem => item.Shortcut_Dimension_1_Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Shortcut_Dimension_2_Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Project_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Available_Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Committed_Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AIE_Receipt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Strategic_Plan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reporting_Year_Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Workplan_Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Activity_Code)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Posted)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Posted_By)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Posted_Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Expenditure_Requisition_Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Payment_Ref_No)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Payment_Date)
+                        </td>*@
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+    $("#datatable-buttons").DataTable({
+        lengthChange: true,
+        lengthMenu: [5, 10, 25, 50, 100] // Same options for the second table
+    });
+</script>

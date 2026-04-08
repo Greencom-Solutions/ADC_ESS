@@ -1,0 +1,869 @@
+﻿@model Latest_Staff_Portal.ViewModel.FleetRequests
+
+@{
+    ViewBag.Title = "FleetRequisitionDocumentView";
+    Layout = "~/Views/Shared/Sitemaster.cshtml";
+}
+
+<style>
+    thead {
+        background-color: black;
+        color: white;
+    }
+
+    .selectedTableRow {
+        background-color: #74788d;
+        color: white;
+    }
+
+    .BtnPadding {
+        padding: 7px;
+        font-size: 12px;
+    }
+</style>
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" onclick="TransportRequisitionListLink();">Transport Requisition List</a>
+                </li>
+                <li class="breadcrumb-item active">Transport Requisition Document (@Model.Transport_Requisition_No)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<hr /><br />
+<div class="card">
+    <div class="card-header">
+        <h4>Transport Requisition Document(@Model.Transport_Requisition_No)</h4>
+        <div class="text-right">
+            @{
+
+                if (Model.Status == "Open")
+                {
+                    <button class="btn btn-primary action-buttons2" onclick="SendTransportReqDocForApproval('@Model.Transport_Requisition_No');">
+                        <i class="fa fa-check" aria-hidden="true"></i> Send (@Model.Transport_Requisition_No) For Approval
+                    </button>
+
+                }
+
+                if (Model.Status == "Pending Approval")
+                {
+                    <button class="btn btn-danger btn-sm" onclick="CancelTransportReqDocApproval('@Model.Transport_Requisition_No');">
+                        <i class="fa fa-times" aria-hidden="true"></i> Cancel Approval Request
+                    </button>
+                    <button class="btn btn-primary action-buttons2" onclick="ViewApprovalTrail('@Model.Transport_Requisition_No');">
+                        <i class="fa fa-history" aria-hidden="true"></i> Approval Trail
+                    </button>
+
+
+
+                }
+
+                <button class="btn btn-primary action-buttons2" onclick="ViewComments('@Model.Transport_Requisition_No');">
+                    <i class="fa fa-list" aria-hidden="true"></i> Approval / Rejection Comments
+                </button>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Transport Requisition No</label>
+                    @Html.EditorFor(model => model.Transport_Requisition_No, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.Transport_Requisition_No, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Employee No</label>
+                    @Html.EditorFor(model => model.Requested_By, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.Requested_By, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Employee Name</label>
+                    @Html.EditorFor(model => model.Requested_By_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.Requested_By_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Designation</label>
+                    @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Imprest Memo</label>
+                    @Html.DropDownListFor(model => model.Approved_Imprest_Memo, Model.ListOfImprestMemo, "Select Option",  new { @class = "form-control", @id= "Approved_Imprest_Memo" } )
+                    @*@Html.EditorFor(model => model.Approved_Imprest_Memo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })*@
+                 
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Commencement</label>
+                    @Html.EditorFor(model => model.From, new { htmlAttributes = new { @class = "form-control",  @id="From" } })
+                    @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Destination</label>
+                    @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control", @id= "Destination" } })
+                    @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Route Description</label>
+                    @Html.EditorFor(model => model.Route_Description, new { htmlAttributes = new { @class = "form-control", @id= "Route_Description" } })
+                    @Html.ValidationMessageFor(model => model.Route_Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Date Of Trip</label>
+                    @*@Html.EditorFor(model => model.Date_of_Trip, new { htmlAttributes = new { @class = "form-control", @id = "Date_of_Trip" } })*@
+                    @{
+                        DateTime parsedDate;
+                        string formattedDate = "";
+
+                        if (DateTime.TryParse(Model.Date_of_Trip, out parsedDate))
+                        {
+                            formattedDate = parsedDate.ToString("dd/MM/yyyy");
+                        }
+                    }
+
+                    <input type="text"
+                           class="form-control"
+                           placeholder="dd/mm/yyyy"
+                           id="Date_of_Trip"
+                           value="@formattedDate"
+                           onkeydown="return false;"
+                           autocomplete="off" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Time Of Trip</label>
+                    @*@Html.EditorFor(model => model.Time_Requested, new { htmlAttributes = new { @class = "form-control", @id = "Time_Requested" } })*@
+                    @{
+                        DateTime parsedTime;
+                        string formattedTime = "";
+
+                        if (DateTime.TryParse(Model.Time_Requested, out parsedTime))
+                        {
+                            formattedTime = parsedTime.ToString("HH:mm");
+                        }
+                    }
+                    <input type="time"
+                           class="form-control"
+                           id="Time_Requested"
+                           value="@formattedTime" />
+
+
+                </div>
+            </div>
+           
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">@Html.DisplayNameFor(model => model.Journey_Route)</label>
+                    @Html.EditorFor(model => model.Journey_Route, new { htmlAttributes = new { @class = "form-control", @id= "Journey_Route" } })
+                    @Html.ValidationMessageFor(model => model.Journey_Route, "", new { @class = "text-danger" })
+                </div>
+            </div>
+           
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">No Of Days Requested</label>
+                    @Html.EditorFor(model => model.No_of_Days_Requested, new { htmlAttributes = new { @class = "form-control", @id= "No_of_Days_Requested", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.No_of_Days_Requested, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Number of Hours Requested</label>
+                    @Html.EditorFor(model => model.Number_of_Hours_Requested, new { htmlAttributes = new { @class = "form-control", @id= "Number_of_Hours_Requested" } })
+                    @Html.ValidationMessageFor(model => model.Number_of_Hours_Requested, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Trip End Date</label>
+                    @Html.EditorFor(model => model.Trip_End_Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.Trip_End_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Trip End Time</label>
+                    @Html.EditorFor(model => model.Trip_End_Time, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.Trip_End_Time, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Status</label>
+                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-5 mb-2">
+
+            <div class="col-md-12">
+                <h4>Purpose</h4>
+                <hr />
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Subject </label>
+                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", style = "background-color: #f2f2f2;" } })
+                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div align="center">
+            <input type="button" class="btn btn-primary action-buttons" value="Update Header" onclick="UpdateHeader();" />
+        </div>
+
+
+        <div id="divDepositLines">
+            <hr style="border:1px solid black" />
+            <b>Travelling Staff</b>
+            <hr />
+            <div id="divLines"></div>
+            <hr style="border:1px solid black" />
+            <b>Transport Requisition Items</b>
+            <hr />
+            <div id="divLines2"></div>
+           
+        </div>
+    </div>
+</div>
+
+@*//////////////////////Modal////////////////////////////*@
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel"><label id="labelF"></label></h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*//////////////////////Modal////////////////////////////*@
+<div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel"><label id="labelF"></label></h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody2">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*//////////////////////Modal////////////////////////////*@
+<div id="myModalApproval" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="labelF"></h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-4" id="modalBodyUnits">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/assets/js/ShowProgression.js"></script>
+<script src="~/assets/js/pdfobject.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+    LoadTransportRequestLines(`@Model.Transport_Requisition_No`);
+
+        $('.select2').select2();
+
+      
+        $('#Date_of_Trip').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            autoclose: true,
+            yearRange: '-0:+2',
+            showOtherMonths: true,
+            dateFormat: 'dd/mm/yy',
+            minDate: 0
+        });
+      
+});
+
+    var LoadTransportRequestLines = function (DocNo) {
+        var status = '@Model.Status';
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "html",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                DocNo: DocNo,
+                status: status
+
+            }),
+            url: "/Fleet/TransportRequisitionLinesPartialView",
+            success: function (data) {
+                $("#divLines").html(data);
+                HideProgress();
+                LoadTransportRequisitionItems(DocNo)
+            },
+            error: function () {
+                HideProgress();
+                LoadTransportRequisitionItems()
+                Swal.fire("There is some problem to process your request. Please try after some time");
+            }
+        });
+    };
+
+
+    var LoadTransportRequisitionItems = function (DocNo) {
+        var Status = '@Model.Status';
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "html",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                DocNo: DocNo,
+                Status: Status
+
+            }),
+            url: "/Fleet/TransportRequisitionItemsPartialView",
+            success: function (data) {
+                $("#divLines2").html(data);
+                HideProgress();
+            },
+            error: function () {
+                HideProgress();
+                Swal.fire("There is some problem to process your request. Please try after some time");
+            }
+        });
+    };
+
+    var AddTransportRequisitionLine = function () {
+        var docNo = '@Model.Transport_Requisition_No';
+
+
+        $("#labelF").text("Add Travelling Staff");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "GET",
+            dataType: "html",
+            url: '/Fleet/NewTransportRequisitionLine',
+            data: {
+                docNo: docNo,
+
+            },
+            success: function (data) {
+                $("#modalBody2").html(data);
+                HideProgress();
+                $("#myModal2").modal("show");
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err.responseText, 'warning');
+            }
+        });
+    };
+
+    function SubmitTransportRequisitionLine() {
+        var isValid = true;
+         var docNo = '@Model.Transport_Requisition_No';
+        var Employee_No = $("#Employee_No2").val();
+        var Date_of_Trip = $("#Date_of_Trip2").val();
+        var No_of_Days_Requested = $("#No_of_Days_Requested2").val();
+
+
+        if (!docNo) {
+            Swal.fire('Warning', 'Document No field is required.', 'warning');
+            isValid = false;
+        }
+
+        if (!Employee_No) {
+            Swal.fire('Warning', 'Please select a Employee.', 'warning');
+            isValid = false;
+        }
+/*
+        if (!Date_of_Trip) {
+            Swal.fire('Warning', 'Date of Trip is required.', 'warning');
+            isValid = false;
+        }
+        if (No_of_Days_Requested<=0) {
+            Swal.fire('Warning', 'Invalid No of Days Requested', 'warning');
+            isValid = false;
+        }
+*/
+
+
+        // Exit if validation fails
+        if (!isValid) {
+            return;
+        }
+
+        // Prepare data object
+        var data = {
+            Req_No: docNo,
+            Employee_No: Employee_No,
+            Date_of_Trip: Date_of_Trip,
+            No_of_Days_Requested: No_of_Days_Requested
+
+        };
+        // Show progress indicator
+        ShowProgress();
+
+        // Send data via AJAX
+        $.ajax({
+            type: "POST",
+            url: "/Fleet/SubmitTransportRequisitionLine",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                HideProgress();
+                if (data.success) {
+                    Swal.fire('Success', 'Transport requisition line submitted successfully.', 'success');
+                    window.location.reload();
+                } else {
+                    Swal.fire('Warning', data.message, 'warning');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Error', 'An error occurred while submitting the request.', 'error');
+            }
+        });
+    }
+
+    function DeleteTransportRequisitionLine(DocNo, Employee_No ) {
+        $.ajax({
+            type: "POST",
+            url: "/Fleet/DeleteTransportRequisitionLine",
+            data: JSON.stringify({ DocNo: DocNo, Employee_No: Employee_No }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                HideProgress();
+                if (data.success) {
+                    Swal.fire('Success', 'Staff deleted successfully.', 'success');
+                    window.location.reload();
+                } else {
+                    Swal.fire('Warning', data.message, 'warning');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Error', 'An error occurred while submitting the request.', 'error');
+            }
+        });
+    }
+
+    var AddTransportRequisitionItem = function () {
+         var docNo = '@Model.Transport_Requisition_No';
+         alert(docNo)
+
+        $("#labelF").text("Add Transport requistion Item");
+         ShowProgress();
+         $.ajax({
+             async: true,
+             type: "GET",
+             dataType: "html",
+             url: '/Fleet/NewTransportRequisitionItem',
+             data: {
+                 docNo: docNo,
+
+             },
+             success: function (data) {
+                 $("#modalBody").html(data);
+                 HideProgress();
+                 $("#myModal").modal("show");
+             },
+             error: function (err) {
+                 HideProgress();
+                 Swal.fire('Warning', err.responseText, 'warning');
+             }
+         });
+     };
+
+    function SubmitTransportRequisitionItem() {
+        var isValid = true;
+        var docNo = '@Model.Transport_Requisition_No';
+        var Item_Type = $("#Item_Type").val();
+        var Description = $("#Description").val();
+        var Serial_Number = $("#Serial_Number").val();
+        var Quantity = $("#Quantity").val();
+        var Purpose = $("#Purpose").val();
+        var Returnable = $("#Returnable").val();
+        var Item_Return_Date = $("#Item_Return_Date").val();
+        var Remarks_Comments = $("#Remarks_Comments").val();
+
+
+        if (!Item_Type) {
+            Swal.fire('Warning', 'Item Type field is required.', 'warning');
+             isValid = false;
+        }
+
+        if (!Description) {
+            Swal.fire('Warning', 'Description is required.', 'warning');
+             isValid = false;
+        }
+
+
+        if (!Serial_Number) {
+            Swal.fire('Warning', 'Serial Number is required.', 'warning');
+            isValid = false;
+        }
+        if (Quantity<=0) {
+            Swal.fire('Warning', 'Invalid Quantity', 'warning');
+            isValid = false;
+        }
+        if (!Purpose) {
+            Swal.fire('Warning', 'Purpose is required.', 'warning');
+            isValid = false;
+        }
+        if (!Item_Return_Date) {
+            Swal.fire('Warning', 'Item Return Date is required.', 'warning');
+            isValid = false;
+        }
+        if (!Remarks_Comments) {
+            Swal.fire('Warning', 'Remarks Comments is required.', 'warning');
+            isValid = false;
+        }
+
+         // Exit if validation fails
+         if (!isValid) {
+             return;
+         }
+
+         // Prepare data object
+         var data = {
+             Requisition_Number: docNo,
+             Item_Type: Item_Type,
+             Description: Description,
+             Serial_Number: Serial_Number,
+             Quantity: Quantity,
+             Purpose: Purpose,
+             Item_Return_Date: Item_Return_Date,
+             Remarks_Comments: Remarks_Comments,
+             Returnable: Returnable,
+
+         };
+         // Show progress indicator
+         ShowProgress();
+
+         // Send data via AJAX
+         $.ajax({
+             type: "POST",
+             url: "/Fleet/SubmitTransportRequisitionItem",
+             data: JSON.stringify(data),
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (data) {
+                 HideProgress();
+                 if (data.success) {
+                     var form = $('<form>', {
+                         action: '/Fleet/TransportRequisitionDocumentView',
+                         method: 'POST'
+                     }).append($('<input>', {
+                         type: 'hidden',
+                         name: 'DocNo',
+                         value: data.message
+                     }));
+                     form.appendTo('body').submit();
+                     Swal.fire('Success', 'Transport requisition Item submitted successfully.', 'success');
+                 } else {
+                     Swal.fire('Warning', data.message, 'warning');
+                 }
+             },
+             error: function (err) {
+                 HideProgress();
+                 Swal.fire('Error', 'An error occurred while submitting the request.', 'error');
+             }
+         });
+    }
+
+    function DeleteTransportRequisitionItem(DocNo, Ticket_No) {
+        var Doc_No=`@Model.Transport_Requisition_No`
+          // Show progress indicator
+          ShowProgress();
+
+          // Send data via AJAX
+          $.ajax({
+              type: "POST",
+              url: "/Fleet/DeleteTransportRequisitionItem",
+              data: JSON.stringify({ DocNo: Doc_No, Ticket_No: Ticket_No }),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function (data) {
+                  HideProgress();
+                  if (data.success) {
+                      Swal.fire('Success', 'Transport requisition Item deleted successfully.', 'success');
+                      window.location.reload();
+                  } else {
+                      Swal.fire('Warning', data.message, 'warning');
+                  }
+              },
+              error: function (err) {
+                  HideProgress();
+                  Swal.fire('Error', 'An error occurred while submitting the request.', 'error');
+              }
+          });
+    }
+
+    function SendTransportReqDocForApproval(DocNo) {
+        // Show progress indicator
+        ShowProgress();
+
+        // Send data via AJAX
+        $.ajax({
+            type: "POST",
+            url: "/Fleet/SendTransportReqDocForApproval",
+            data: JSON.stringify({ DocNo: DocNo }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                HideProgress();
+                if (data.success) {
+                    Swal.fire('Success', 'Document successfully sent for approval.', 'success');
+                    window.location.reload();
+                } else {
+                    Swal.fire('Warning', data.message, 'warning');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Error', 'An error occurred while submitting the request.', 'error');
+            }
+        });
+    }
+
+    function CancelTransportReqDocApproval(DocNo) {
+        // Show progress indicator
+        ShowProgress();
+
+        // Send data via AJAX
+        $.ajax({
+            type: "POST",
+            url: "/Fleet/CancelTransportReqDocApproval",
+            data: JSON.stringify({ DocNo: DocNo }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                HideProgress();
+                if (data.success) {
+                    Swal.fire('Success', 'Document approval successfully cancelled.', 'success');
+                    window.location.reload();
+                } else {
+                    Swal.fire('Warning', data.message, 'warning');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Error', 'An error occurred while submitting the request.', 'error');
+            }
+        });
+    }
+
+
+
+    function TransportRequisitionListLink() {
+        window.location.href ="/Fleet/TransportRequisitionList"
+    }
+
+    var ViewApprovalTrail = function (DocNo) {
+        $("#labelF").text("Approval Trail");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            datatype: "json",
+            data: JSON.stringify({ DocNo: DocNo }),
+            contentType: "application/json; charset = utf-8",
+            processData: false,
+            url: '/Common/DocumentApprovalTrail',
+            success: function (data) {
+                $("#modalBodyUnits").html(data);
+                HideProgress();
+                $("#myModalApproval").modal("show");
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Warning', err, 'warning');
+            }
+        });
+    }
+
+    var ViewComments = function (DocNo) {
+
+        $('#myModalLabel').text("Document Comments");
+        ShowProgress();
+        $.ajax({
+            async: true,
+            type: "POST",
+            data: { DocNo: DocNo }, // no need to JSON.stringify for simple string
+            url: '/Common/DocumentApprovalComments',
+            success: function (data) {
+                $("#modalBody").html(data); // ✅ insert HTML
+                HideProgress();
+                $("#myModal").modal("show");
+            },
+            error: function (xhr, status, error) {
+                HideProgress();
+                Swal.fire('Warning', error || "An unexpected error occurred", 'warning');
+            }
+        });
+    };
+
+
+
+    function UpdateHeader() {
+
+        var isValid = true;
+
+        /*  var Requested_By = $("#Requested_By").val();*/
+        var Transport_Requisition_No = `@Model.Transport_Requisition_No`;
+        var Approved_Imprest_Memo = $("#Approved_Imprest_Memo").val();
+        var From = $("#From").val();
+        var Destination = $("#Destination").val();
+        var Route_Description = $("#Route_Description").val();
+        var Journey_Route = $("#Journey_Route").val();
+        var Date_of_Trip = $("#Date_of_Trip").val();
+        var Time_Requested = $("#Time_Requested").val();
+        var No_of_Days_Requested = $("#No_of_Days_Requested").val();
+        var Number_of_Hours_Requested = $("#Number_of_Hours_Requested").val();
+        //var Trip_End_Date = $("#Trip_End_Date").val();
+        //var Trip_End_Time = $("#Trip_End_Time").val();
+        //var Capacity = $("#Capacity").val();
+        //var Responsibility_Center = $("#Responsibility_Center").val();
+
+
+        /*  if (!Approved_Imprest_Memo) {
+              Swal.fire('Warning', 'Imprest Memo field is required.', 'warning');
+               isValid = false;
+          }*/
+        if (!From) {
+            Swal.fire('Warning', 'Commencement is required.', 'warning');
+            isValid = false;
+        }
+        if (!Destination) {
+            Swal.fire('Warning', 'Destination is required.', 'warning');
+            isValid = false;
+        }
+        if (!Route_Description) {
+            Swal.fire('Warning', 'Route Description required', 'warning');
+            isValid = false;
+        }
+        if (!Date_of_Trip) {
+            Swal.fire('Warning', 'Date Of Trip is required.', 'warning');
+            isValid = false;
+        }
+
+        if (!Journey_Route) {
+            Swal.fire('Warning', 'Journey Route is required.', 'warning');
+            return;
+        }
+        if (!Time_Requested) {
+            Swal.fire('Warning', 'Time Of Trip is required.', 'warning');
+            isValid = false;
+        }
+        if (No_of_Days_Requested <= 0) {
+            Swal.fire('Warning', 'Invalid No of Days requested.', 'warning');
+            isValid = false;
+        }
+        if (Number_of_Hours_Requested <= 0) {
+            Swal.fire('Warning', 'Invalid No of Hours requested.', 'warning');
+            isValid = false;
+        }
+        //if (Responsibility_Center <= 0) {
+        //    Swal.fire('Warning', 'Select Responsibility Center', 'warning');
+        //    isValid = false;
+        //}
+
+
+        // Exit if validation fails
+        if (!isValid) {
+            return;
+        }
+
+        // Prepare data object
+        var data = {
+            Transport_Requisition_No: Transport_Requisition_No,
+            Approved_Imprest_Memo: Approved_Imprest_Memo,
+            From: From,
+            Destination: Destination,
+            Route_Description: Route_Description,
+            Journey_Route: Journey_Route,
+            Date_of_Trip: Date_of_Trip,
+            Time_Requested: Time_Requested,
+            No_of_Days_Requested: No_of_Days_Requested,
+            Number_of_Hours_Requested: Number_of_Hours_Requested,
+
+        };
+        // Show progress indicator
+        ShowProgress();
+
+        // Send data via AJAX
+        $.ajax({
+            type: "POST",
+            url: "/Fleet/SubmitUpdatedTransportReqHeader",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                HideProgress();
+                if (data.success) {  
+                    Swal.fire('Success', data.message, 'success').then(() => {window.location.reload() });
+                } else {
+                    Swal.fire('Warning', data.message, 'warning');
+                }
+            },
+            error: function (err) {
+                HideProgress();
+                Swal.fire('Error', 'An error occurred while submitting the request.', 'error');
+            }
+        });
+    }
+</script>

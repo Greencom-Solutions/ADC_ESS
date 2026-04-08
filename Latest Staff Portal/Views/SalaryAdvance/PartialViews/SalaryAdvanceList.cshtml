@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Latest_Staff_Portal.ViewModel.SalaryAdvanceModel>
+
+<div class="table-responsive">
+    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        <thead style="">
+            <tr>
+                <th>Action</th>
+                <th>Loan No</th>
+                <th>Application Date</th>
+                @*<th>Date Filter</th>*@
+                <th>Amount Requested</th>
+                <th>Total Repayment</th>
+                <th>Loan Status</th>
+                @*<th>Loan Product Type</th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="text-align:right">
+                            <button class="btn btn-primary btn-sm action-buttons2" onclick="ViewSalaryAdvanceDoc('@item.Loan_No');">
+                                <i class="fa fa-eye"></i> View
+                            </button>
+                        </td>
+                        <td>@item.Loan_No</td>
+                        <td>@item.Application_Date</td>
+                        @*<td>@item.Date_filter</td>*@
+                        <td>@item.Amount_Requested</td>
+                        <td>@item.Total_Repayment</td>
+                        <td>@item.Loan_Status</td>
+                        @*<td>@item.Loan_Product_Type</td>*@
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $("#datatable-buttons").DataTable({
+        lengthChange: true,
+        lengthMenu: [5, 10, 25, 50, 100],
+        "responsive": true,
+        language: {
+            emptyTable: "No salary advance available. Click 'New Salary Advance' to add",
+            info: "Showing _START_ to _END_ of _TOTAL_ entries",
+            infoEmpty: "No entries available",
+            zeroRecords: "No matching records found"
+        },
+        columnDefs: [
+            {
+                targets: '_all',
+                defaultContent: ""
+            }
+        ]
+    });
+</script>
