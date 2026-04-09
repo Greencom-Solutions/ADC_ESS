@@ -2558,15 +2558,14 @@ a {
 	11. Login
 -----------------------*/
 
+/*-----------------
+	11. Login
+-----------------------*/
+
 .login-body {
     display: table;
     height: 100vh;
     min-height: 100vh;
-    background: var(--light-gray);
-}
-
-[data-theme="dark"] .login-body {
-    background: var(--black);
 }
 
 .login-wrapper {
@@ -2574,67 +2573,50 @@ a {
     height: 100%;
     display: table-cell;
     vertical-align: middle;
-    background-color: #e4ebe0 !important;
 }
 
     .login-wrapper .loginbox {
         background-color: #fff;
         border-radius: 6px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        /*display: flex;*/
+        display: flex;
         margin: 1.875rem auto;
         max-width: 700px;
         min-height: 500px;
         width: 100%;
     }
 
+        .login-wrapper .loginbox .login-left {
+            align-items: center;
+            background: linear-gradient(180deg, #704825, #704825);
+            border-radius: 6px 0 0 6px;
+            flex-direction: column;
+            padding-left: 70px;
+            padding-right: 70px;
+            padding-top: 35px;
+            width: 350px;
+            display: flex;
+        }
 
-.loginbox {
-    background-color: #fff;
-    border-radius: 6px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 1.875rem auto;
-    max-width: 700px;
-    min-height: 500px;
-    width: 100%;
-    padding: 18px 25px;
-}
+        .login-wrapper .loginbox .login-right {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            width: 350px;
+        }
 
-[data-theme="dark"] {
-    background-color: var(--sidebar-bg);
-}
+            .login-wrapper .loginbox .login-right .login-right-wrap {
+                max-width: 100%;
+                flex: 0 0 100%;
+            }
 
-.login-wrapper .loginbox .login-left {
-    align-items: center;
-    background: linear-gradient(180deg, #805c3d, #805c3d);
-    border-radius: 6px 0 0 6px;
-    flex-direction: column;
-    padding-left: 70px;
-    padding-right: 70px;
-    padding-top: 35px;
-    width: 350px;
-    /*display: flex;*/
-}
-
-.login-wrapper .loginbox .login-right {
-    align-items: center;
-    /*display: flex;*/
-    justify-content: center;
-    padding: 40px;
-    width: 350px;
-}
-
-    .login-wrapper .loginbox .login-right .login-right-wrap {
-        max-width: 100%;
-        flex: 0 0 100%;
-    }
-
-    .login-wrapper .loginbox .login-right h1 {
-        font-size: 26px;
-        font-weight: 500;
-        margin-bottom: 5px;
-        text-align: center;
-    }
+            .login-wrapper .loginbox .login-right h1 {
+                font-size: 26px;
+                font-weight: 500;
+                margin-bottom: 5px;
+                text-align: center;
+            }
 
 .account-subtitle {
     color: #4c4c4c;
@@ -2648,7 +2630,7 @@ a {
 }
 
     .login-wrapper .loginbox .login-right .forgotpass a:hover {
-        color: var(--deep-purple);
+        color: #c5ab32;
         text-decoration: underline;
     }
 
@@ -2728,29 +2710,6 @@ a {
     top: 0;
     width: 42px;
 }
-
-#btnLogin {
-    background-color: #805c3d;
-    color: white;
-    transition: .3s ease-in-out;
-    border: none
-}
-
-    #btnLogin:hover {
-        background-color: #5d7950;
-        color: white;
-    }
-#btnReset {
-    background-color: #805c3d;
-    color: white;
-    transition: .3s ease-in-out;
-    border: none
-}
-
-    #btnReset:hover {
-        background-color: #5d7950;
-        color: white;
-    }
 /*-----------------
 	12. Lock Screen
 -----------------------*/
